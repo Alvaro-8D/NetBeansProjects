@@ -45,7 +45,7 @@ public class Paquete {
 @Override
     public String toString() {
         return "    Paquete ("+id+")" + ":\n    peso: " + peso + "\n    precio: " + precio 
-            + "\n   certificado: " + certificado;
+            + "\n    certificado: " + certificado;
     }    
     
 }// class

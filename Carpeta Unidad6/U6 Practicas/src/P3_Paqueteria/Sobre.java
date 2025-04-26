@@ -17,8 +17,9 @@ public class Sobre extends Paquete{
 
   @Override
     public String toString() {
-        return "    Paquete ("+getId()+")" + ":\n    peso: " + getPeso() + "\n    precio: " + getPrecio()
-            + "\n   certificado: " + isCertificado()+ "\n   color: " + color;
+        return "\n" + "  SOBRE ("+getId()+")" + ":\n   + peso: " + getPeso() + 
+        "\n   + precio: " + getPrecio() + "\n   + certificado: " + isCertificado()
+                + "\n   + color: " + color +"\n";
     }   
 
 }// class

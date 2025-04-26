@@ -11,8 +11,8 @@ public class Caja extends Paquete{
     
   @Override
     public String toString() {
-        return "    Paquete ("+getId()+")" + ":\n    peso: " + getPeso() + "\n    precio: " + getPrecio()
-            + "\n   certificado: " + isCertificado();
+        return "\n" + "  CAJA ("+getId()+")" + ":\n   + peso: " + getPeso() 
+    + "\n   + precio: " + getPrecio() + "\n   + certificado: " + isCertificado();
     }
     
 }// class

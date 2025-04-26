@@ -1,5 +1,6 @@
 package P3_Paqueteria;
 
+import java.util.Arrays;
 
 public class Sucursal {
 
@@ -37,7 +38,7 @@ public class Sucursal {
 @Override
     public String toString() {
         return nombre + ":\ndireccion: " + direccion + "\nencargado: " + encargado 
-            + "\npaquetes: " + paquetes.toString() + "\nindicePaquetes: " + indicePaquetes + '}';
+            + "\npaquetes: " + Arrays.toString(paquetes) + "\nindicePaquetes: " + indicePaquetes + '}';
     }
 
 
