@@ -7,6 +7,13 @@ public class Sobre extends Paquete{
 /* ---------------------------- Constructores --------------------------------*/    
     public Sobre(int peso, boolean certificado) {
         super(peso, certificado);
+        
+        if(peso <= 150)
+            setPrecio(10);
+        else if(peso <= 150)
+            setPrecio(10);
+        else
+            setPrecio(10);
     }
     
     public Sobre(int peso, boolean certificado, String color) {

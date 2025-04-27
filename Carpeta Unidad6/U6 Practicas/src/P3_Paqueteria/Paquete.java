@@ -40,6 +40,10 @@ public class Paquete {
     public boolean isCertificado() {
         return certificado;
     }
+    
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
 
     
 @Override
