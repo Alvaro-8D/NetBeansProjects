@@ -6,6 +6,13 @@ public class Caja extends Paquete{
 /* ---------------------------- Constructores --------------------------------*/    
     public Caja(int peso, boolean certificado) {
         super(peso, certificado);
+        
+        if(peso <= 150)
+            setPrecio(getPrecio()+20);
+        else if((peso <= 250)&&(peso > 150))
+            setPrecio(getPrecio()+25);
+        else
+            setPrecio(getPrecio()+30);
     }
 /* ------------------------------- Metodos ---------------------------------- */
     

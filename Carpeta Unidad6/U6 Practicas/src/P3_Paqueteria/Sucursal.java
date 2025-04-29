@@ -37,7 +37,7 @@ public class Sucursal {
 
 @Override
     public String toString() {
-        return nombre + ":\ndireccion: " + direccion + "\nencargado: " + encargado 
+        return ">>>> "+ nombre + " <<<<\ndireccion: " + direccion + "\nencargado: " + encargado 
             + "\npaquetes: " + Arrays.toString(paquetes) + "\nindicePaquetes: " + indicePaquetes + '}';
     }
 

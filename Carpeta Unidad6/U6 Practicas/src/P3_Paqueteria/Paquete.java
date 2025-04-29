@@ -6,7 +6,7 @@ public class Paquete {
     private static int  identificadores = 1000;
     private int         id;
     private int         peso;
-    private int         precio;
+    private int         precio = 0;
     private boolean     certificado;// se le añaden 6 euros si está certificado
     
 /* ---------------------------- Constructores --------------------------------*/    
@@ -45,11 +45,4 @@ public class Paquete {
         this.precio = precio;
     }
 
-    
-@Override
-    public String toString() {
-        return "    Paquete ("+id+")" + ":\n    peso: " + peso + "\n    precio: " + precio 
-            + "\n    certificado: " + certificado;
-    }    
-    
 }// class

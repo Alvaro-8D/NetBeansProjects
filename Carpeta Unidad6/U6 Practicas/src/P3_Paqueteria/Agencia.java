@@ -17,18 +17,25 @@ public class Agencia {
         System.out.print("Introduce la direccion de la sucursalA: ");
         direccionSucursal = entrada.nextLine();
 
+        Sucursal sucursalA= new Sucursal("sucursalA",direccionSucursal, encargadoSucursal);
         
         System.out.print("\nIntroduce el encargado(a) de la sucursalB: ");
         encargadoSucursal = entrada.nextLine();
         System.out.print("Introduce la direccion de la sucursalB: ");
         direccionSucursal = entrada.nextLine();
 
-        Sucursal sucursalA= new Sucursal("sucursalA",direccionSucursal, encargadoSucursal);
+        
         Sucursal sucursalB = new Sucursal("sucursalB",direccionSucursal, encargadoSucursal);
         
         
         generarPaquetes(sucursalA,sucursalB);
         
+        
+        System.out.println("");
+        System.out.println(sucursalA.toString());
+        
+        System.out.println("");
+        System.out.println(sucursalB.toString());
         
     }// main
 /* ------------------------------- Metodos ---------------------------------- */
@@ -37,7 +44,14 @@ public class Agencia {
         Paquete paquetesA[] = new Paquete[10];
         Paquete paquetesB[] = new Paquete[10];
         
-        if(sucursalA.getIndicePaquetes() < 4)
+        if(paquete.getPrecio()== -1)
+        {
+            
+            System.out.println("");System.out.println("! ! ! ! ! ! ! ! ! !");
+            System.out.println("El paquete "+paquete.getId()+" pesa demasiado"
+            + " para ser un sobre.\n********** NO SERA ENVIADO **********");
+        }
+        else if(sucursalA.getIndicePaquetes() < 4)
         {
             paquetesA = sucursalA.getPaquetes();
             
@@ -45,8 +59,6 @@ public class Agencia {
             sucursalA.sumaIndicePaquetes();
             
             sucursalA.setPaquetes(paquetesA);
-            System.out.println("");
-            System.out.println(sucursalA.toString());
         }
         else
         {
@@ -56,9 +68,9 @@ public class Agencia {
             sucursalB.sumaIndicePaquetes();
             
             sucursalB.setPaquetes(paquetesB);
-            System.out.println("");
-            System.out.println(sucursalB.toString());
         }
+        
+        
     }
     
     private static void generarPaquetes(Sucursal sucursalA,Sucursal sucursalB) 
@@ -88,6 +100,8 @@ public class Agencia {
          
         paquete  = new Sobre (160,true); 
         asignarSucursal (paquete,sucursalA,sucursalB);                  //id = 1006 
+        
+        paquete  = null;                // borramos paquete
         
     }// generarPaquetes
 
