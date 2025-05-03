@@ -15,13 +15,17 @@ public class Tablero {
         
         verTablero(tablero);
         preguntarFiguras(tablero,figuras);
+        
+        System.out.println("/********* FINAL *********/");
         verTablero(tablero);
+        
+        
         
     }// main
 /* ------------------------------- Metodos ---------------------------------- */
-    private static void verTablero(String tablero[][])
+    public static void verTablero(String tablero[][])
     {
-        System.out.println(" 0 1 2 3 4 5 6 7");
+        System.out.println(" 0 1 2 3 4 5 6 7  X*");
         for(int i = 0; i < tablero.length; i++)
         {
             System.out.print(i);
@@ -31,6 +35,7 @@ public class Tablero {
             }
             System.out.println("");
         }
+        System.out.println("Y*");
     }// verTablero
     
     private static void preguntarFiguras(String tablero[][],Figura figuras[])
@@ -45,7 +50,7 @@ public class Tablero {
                 System.out.println("Figura --------------> "+(i+1));
                 System.out.println("Posición de un Alfil"+" x,y respectivamente: ");
                     x = entrada.nextInt();y = entrada.nextInt();
-                figuras[i] = new Alfil(y, x);
+                figuras[i] = new Alfil(x, y);
                 ok = colocarFigura(figuras[i], tablero);
             }while(ok);
         }
@@ -54,9 +59,9 @@ public class Tablero {
         {
             do{
                 System.out.println("Figura --------------> "+(i+1));
-                System.out.println("Posición una Torre+"+" x,y respectivamente: ");
+                System.out.println("Posición una Torre"+" x,y respectivamente: ");
                     x = entrada.nextInt();y = entrada.nextInt();
-                figuras[i] = new Torre(y, x);
+                figuras[i] = new Torre(x, y);
                 ok = colocarFigura(figuras[i], tablero);
             }while(ok);
         }
@@ -66,21 +71,42 @@ public class Tablero {
     {
         boolean ok = false; // controlar posicion repedita de figuras
         
-        if(!tablero[figura.getxCord()][figura.getyCord()].equals("·"))
+        if(!tablero[figura.getyCord()][figura.getxCord()].equals("·"))
         {
             ok = true;
             System.out.println("!!!Ese lugar ya ha sido escogido!!!");
         }
         else if(figura instanceof Alfil)
         {
-            tablero[figura.getxCord()][figura.getyCord()]="A";
-            ok = false;
+            if(((Alfil) figura).detectorAlfil(tablero))
+            {
+                tablero[figura.getyCord()][figura.getxCord()]="A";
+                ok = false;
+            }
+            else
+            {
+                ok = true;
+                System.out.println("!!!Cuidado,las fichas se pueden comer!!!"
+                        + "\n (Ponla en otro lugar)");
+            }
         }
-        else
+        else if(figura instanceof Torre)
         {
-            tablero[figura.getxCord()][figura.getyCord()]="T";
-            ok = false;
+            if(((Torre) figura).detectorTorre(tablero))
+            {
+                tablero[figura.getyCord()][figura.getxCord()]="T";
+                ok = false;
+            }
+            else
+            {
+                ok = true;
+                System.out.println("!!!Cuidado,las fichas se pueden comer!!!"
+                        + "\n (Ponla en otro lugar)");
+            }
         }
+        
+        verTablero(tablero);
+        
         return ok;
     }// verTablero
     
