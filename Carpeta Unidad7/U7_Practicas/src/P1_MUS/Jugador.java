@@ -1,8 +1,13 @@
 package P1_MUS;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Jugador {
-    
+
     private String nombre;
     private Carta mano[] = new Carta[4]; // mano de 4 cartas
     // Puntucacion "juego"
@@ -11,6 +16,8 @@ public class Jugador {
     // Puntucacion "pares"
     private String pares1 = "no"; // si / no
     private String pares2; // par / medias / duples
+    // "numJugadores" para guardar todos los jugadores en el fichero
+    private static int numJugadores = 0; 
 /* ---------------------------- Constructores --------------------------------*/    
     public Jugador(String nombre,Carta mano[]) {
         this.nombre = nombre;
@@ -27,10 +34,10 @@ public class Jugador {
         
         for(int j = 0; j < numsFicticios.length; j++)
         {
-            if(numsFicticios[j] == 2)
+            if((numsFicticios[j] == 2)||(numsFicticios[j] == 4))
             {
                 cuentaParejas ++;
-                if(cuentaParejas == 2)
+                if((cuentaParejas == 2)||(numsFicticios[j] == 4))
                 {
                     pares2 = "duples"; 
                     pares1 = "si";
@@ -41,7 +48,7 @@ public class Jugador {
                     pares1 = "si";
                 }
             }
-            else if((numsFicticios[j] == 3)||(numsFicticios[j] == 4))
+            else if(numsFicticios[j] == 3)
             {
                 pares2 = "medias";
                 pares1 = "si";
@@ -52,10 +59,8 @@ public class Jugador {
     public void calularJuego()
     {
         for(int i = 0; i < mano.length; i++)
-        {
             juego2 += mano[i].getValor();
-            System.out.println(">Cuenta Puntos ("+nombre+"): "+juego2);
-        }
+        
         if(juego2 >= 31)
             juego1 = "si";
 
@@ -63,20 +68,50 @@ public class Jugador {
     
     public void espiarJugador()
     {
-        System.out.println("");
-        System.out.println("Jugador --> "+nombre+" <--");
-        for(int i = 0; i < mano.length; i++)
-            System.out.println("+ "+mano[i].getNombre());
-        
-        if(juego2 >= 31)
-            System.out.println("Juego: "+juego1+" "+juego2);
-        else
-            System.out.println("Juego: "+juego1);
-        
-        if(pares2 == null)
-            System.out.println("Pares: "+pares1);  
-        else
-            System.out.println("Pares: "+pares1+" "+pares2);
+        FileWriter fw = null;
+        try 
+        {
+            if(numJugadores == 0) // borra el fichero para sobreescribirlo
+                fw = new FileWriter("c:/ficheros/salida.txt");
+            else
+                fw = new FileWriter("c:/ficheros/salida.txt",true);
+            
+            PrintWriter salida = new PrintWriter(fw);
+            salida.flush();
+            
+            salida.println("##################################");
+            salida.println("Jugador --> "+nombre+" <--"); 
+            numJugadores++; // para guardar todos los jugadores en el fichero
+            
+            for(int i = 0; i < mano.length; i++)
+                salida.println("+ "+mano[i].getNombre());
+
+            if(juego2 >= 31)
+                salida.println("Juego: "+juego1+" "+juego2);
+            else
+                salida.println("Juego: "+juego1);
+
+            if(pares2 == null)
+                salida.println("Pares: "+pares1);  
+            else
+                salida.println("Pares: "+pares1+" "+pares2);
+            
+            salida.flush();
+        } 
+        catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());                                                                   
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if ((fw != null)&&(numJugadores >= 4)) 
+                    fw.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());                                                               
+            }
+        }
     }// espiarJugador
 
 }// class

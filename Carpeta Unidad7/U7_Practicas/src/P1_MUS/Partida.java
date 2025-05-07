@@ -1,23 +1,26 @@
 package P1_MUS;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class Partida {
     public static void main(String[] args) 
     {
-        Carta baraja[] = new Carta[40];
-        Jugador jugadores[] = new Jugador[4];
+        
+        
+        Carta baraja[] = new Carta[40]; // guarda todas las cartas
+        Jugador jugadores[] = new Jugador[4]; // guarda todos los jugadores
         
         crearBaraja(baraja); // crea la baraja de cartas
         invitarJugadores(jugadores, baraja); // crea a los jugadores
-        repartirCartas(baraja);
         
+        for(int i = 0; i < jugadores.length; i++)
+            jugadores[i].espiarJugador(); // visualiza el juego de cada jugador
         
-        jugadores[0].espiarJugador(); // ponder un "for()" aqui
-        jugadores[1].espiarJugador();
-        jugadores[2].espiarJugador();
-        jugadores[3].espiarJugador();
-        
-        //verBaraja(baraja);
+        leerArchivo("c:/ficheros/salida.txt");
     }// main
 /* ------------------------------- Metodos ---------------------------------- */
     private static void verBaraja(Carta baraja[])
@@ -49,7 +52,6 @@ public class Partida {
     
     private static void invitarJugadores(Jugador jugadores[],Carta baraja[])
     {
-        
         for(int i = 0; i < jugadores.length; i++)// crear baraja de cartas
         {
             Carta cuatroCartas[] = repartirCartas(baraja);
@@ -78,5 +80,34 @@ public class Partida {
         }
         return cuatroCartas;
     }// repartirCartas
+    
+    private static void leerArchivo(String directArchivo)
+    {
+        FileReader fr = null;
+        try {
+            fr = new FileReader(directArchivo);
+            BufferedReader entrada = new BufferedReader(fr);
+            String cadena = entrada.readLine();    //se lee la primera línea del fichero
+            while (cadena != null) 
+            {                                      //mientras no se llegue al final del fichero                   
+                System.out.println(cadena);        //se nuestra por pantalla
+                cadena = entrada.readLine();       //se lee la siguiente línea del fichero                        
+            }
+        } 
+        catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if (fr != null) 
+                    fr.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());                                                               
+            }
+        }
+    }// leerArchivo
     
 }// class
